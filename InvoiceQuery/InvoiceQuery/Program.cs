@@ -16,7 +16,8 @@ namespace InvoiceQuery
         {
             InvoiceQueryHelper helper = new InvoiceQueryHelper();
 
-           var invoices = helper.GetInvoiceAndJob();
+          // var invoices = helper.GetInvoiceAndJob();
+            var invoices = helper.GetInvoiceWithCustomer();
             Export(invoices);
 
         }
@@ -24,10 +25,10 @@ namespace InvoiceQuery
         {
             using (TextWriter sw = new StreamWriter("D:\\Invoice_JobNumbers.csv"))
             {
-                sw.WriteLine("InvoiceNumber\tJobNumber\tCustomerName\tMemo");
+                sw.WriteLine("InvoiceNumber\tJobNumber\tCustomerName\tMemo\tCustomer_Name");
                 foreach (var item in list)
                 {
-                    sw.WriteLine($"{item.InvoiceNumber}\t{item.JobNumber}\t{item.CustomerName}\t{item.Memo}");
+                    sw.WriteLine($"{item.InvoiceNumber}\t{item.JobNumber}\t{item.CustomerName}\t{item.Memo}\t{item.Customer?.Name}");
                 }
             }
         }
