@@ -15,5 +15,6 @@ namespace InvoiceQuery
         public string CustomerName { get; internal set; }
         public string Description { get; internal set; }
         public DateTime? InvoiceDate { get; internal set; }
+        public double? Amount { get; internal set; }
     }
 }

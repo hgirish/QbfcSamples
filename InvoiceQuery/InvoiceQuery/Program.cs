@@ -30,10 +30,10 @@ namespace InvoiceQuery
         {
             using (TextWriter sw = new StreamWriter("D:\\Invoice_JobNumbers.csv"))
             {
-                sw.WriteLine("InvoiceNumber\tJobNumber\tCustomerName\tMemo\tCustomer_Name\tDescription");
+                sw.WriteLine("InvoiceNumber\tInvoiceDate\tAmount\tJobNumber\tCustomerName\tMemo\tCustomer_Name\tDescription");
                 foreach (var item in list)
                 {
-                    sw.WriteLine($"{item.InvoiceNumber}\t{item.InvoiceDate}\t{item.JobNumber}\t{item.CustomerName}\t{item.Memo}\t{item.Customer?.Name}\t{item.Description}");
+                    sw.WriteLine($"{item.InvoiceNumber}\t{item.InvoiceDate}\t{item.Amount}\t{item.JobNumber}\t{item.CustomerName}\t{item.Memo}\t{item.Customer?.Name}\t{item.Description}");
                 }
             }
         }

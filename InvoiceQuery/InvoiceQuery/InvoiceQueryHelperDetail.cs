@@ -17,8 +17,8 @@ namespace InvoiceQuery
             var invoices = new List<Invoice>();
             sessionManager = new QBSessionManager();
             IMsgSetRequest requestMsgSet = null;
-            var fromDate = new DateTime(2015, 1, 1);
-            var toDate = new DateTime(2018, 1, 31);
+            var fromDate = new DateTime(2018, 1, 5);
+            var toDate = new DateTime(2018, 1, 5);
 
             try
             {
@@ -63,7 +63,8 @@ namespace InvoiceQuery
                             InvoiceDate = invoiceRet.TimeCreated?.GetValue(),
                             Memo = invoiceRet.Memo?.GetValue(),
                             JobNumber = invoiceRet.Other?.GetValue(),
-                            CustomerName = invoiceRet.CustomerRef.FullName?.GetValue()
+                            CustomerName = invoiceRet.CustomerRef.FullName?.GetValue(),
+                            Amount = invoiceRet.BalanceRemaining?.GetValue()
 
                         };
                         var customerListId = invoiceRet.CustomerRef?.ListID?.GetValue();
@@ -87,7 +88,7 @@ namespace InvoiceQuery
                                 QuickBooksID = customerRet.ListID?.GetValue(),
                                 EditSequence = customerRet.EditSequence?.GetValue(),
                                 FullName = customerRet.FullName?.GetValue(),
-                                CompanyName = customerRet.CompanyName?.GetValue()
+                                CompanyName = customerRet.CompanyName?.GetValue(),
                             };
                           //  Console.WriteLine($"{i}\t{invoice.Customer.Name}\t{invoice.Customer.FullName}\t{invoice.Customer.CompanyName}");
                            // Console.WriteLine($"{i}\t\tInvoice detail starts");
@@ -126,7 +127,7 @@ namespace InvoiceQuery
                                         }
                                     }
                                     
-                                    Console.WriteLine($"{invoice.InvoiceNumber} \t{invoice.JobNumber}\t{invoice.Description}");
+                                    Console.WriteLine($"{invoice.InvoiceNumber}\t{invoice.Amount} \t{invoice.JobNumber}\t{invoice.Description}");
 
                                 }
                                // Console.WriteLine($"InvoiceList Count: {invoiceRet.ORInvoiceLineRetList.Count}");
