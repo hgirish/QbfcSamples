@@ -12,5 +12,6 @@ namespace InvoiceQuery
         public string Memo { get; internal set; }
         public string JobNumber { get; internal set; }
         public string CustomerName { get; internal set; }
+        public string Description { get; internal set; }
     }
 }
