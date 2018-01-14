@@ -15,15 +15,17 @@ namespace InvoiceQuery
         static void Main(string[] args)
         {
             // InvoiceQueryHelper helper = new InvoiceQueryHelper();
-             var helper = new InvoiceQueryHelperDetail();
+            // var helper = new InvoiceQueryHelperDetail();
             // var invoices = helper.GetInvoiceAndJob();
             //  var invoices = helper.GetInvoiceWithCustomer();
-             var invoices = helper.GetInvoiceDetail();
+            //    var invoices = helper.GetInvoiceDetail();
             //var demo = new Demo();
             //demo.GetInvoiceDetail();
-            
+            var test = new  OpenCompanyFile();
+            test.OpenQB();
 
-            Export(invoices);
+
+          //  Export(invoices);
 
         }
         public static void Export(IList<Invoice> list)
