@@ -2,7 +2,7 @@
 
 namespace InvoiceQuery
 {
-    internal class Invoice
+    public class Invoice
     {
         public string QuickBooksID { get; internal set; }
         public string EditSequence { get; internal set; }
