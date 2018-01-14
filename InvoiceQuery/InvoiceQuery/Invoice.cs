@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace InvoiceQuery
 {
@@ -13,5 +14,6 @@ namespace InvoiceQuery
         public string JobNumber { get; internal set; }
         public string CustomerName { get; internal set; }
         public string Description { get; internal set; }
+        public DateTime? InvoiceDate { get; internal set; }
     }
 }

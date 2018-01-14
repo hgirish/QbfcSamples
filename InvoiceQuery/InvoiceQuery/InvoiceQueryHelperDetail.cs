@@ -17,7 +17,7 @@ namespace InvoiceQuery
             var invoices = new List<Invoice>();
             sessionManager = new QBSessionManager();
             IMsgSetRequest requestMsgSet = null;
-            var fromDate = new DateTime(2016, 1, 5);
+            var fromDate = new DateTime(2015, 1, 1);
             var toDate = new DateTime(2018, 1, 31);
 
             try
@@ -60,6 +60,7 @@ namespace InvoiceQuery
                             QuickBooksID = invoiceRet.TxnID.GetValue(),
                             EditSequence = invoiceRet.EditSequence.GetValue(),
                             InvoiceNumber = invoiceRet.RefNumber?.GetValue(),
+                            InvoiceDate = invoiceRet.TimeCreated?.GetValue(),
                             Memo = invoiceRet.Memo?.GetValue(),
                             JobNumber = invoiceRet.Other?.GetValue(),
                             CustomerName = invoiceRet.CustomerRef.FullName?.GetValue()
@@ -101,6 +102,12 @@ namespace InvoiceQuery
                                         IORInvoiceLineRet orInvoiceLineRet = invoiceRet.ORInvoiceLineRetList.GetAt(1);
                                     
                                         invoice.Description = orInvoiceLineRet?.InvoiceLineRet?.Desc?.GetValue();
+                                        if (string.IsNullOrEmpty(invoice.Description))
+                                        {
+                                             orInvoiceLineRet = invoiceRet.ORInvoiceLineRetList.GetAt(0);
+
+                                            invoice.Description = orInvoiceLineRet?.InvoiceLineRet?.Desc?.GetValue();
+                                        }
                                     }
                                     catch (Exception ex )
                                     {
