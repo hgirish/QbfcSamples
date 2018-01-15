@@ -5,8 +5,8 @@ Local requestmsgset, invoiceQueryRq, responsemsgset, response2, InvoiceRetList, 
 Clear
 minvno  = 307
 mfile = 'qbdemo'
-fromDate = Date(2018,1,5)
-toDate = Date(2018,1,5)
+fromDate = Date(2015,1,5)
+toDate = Date(2018,1,31)
 
 sessionBegun = .F.
 connectionOpen = .F.
@@ -69,8 +69,15 @@ Try
 		EditSequence = InvoiceRet.EditSequence.GetValue()
 		lcInvoiceNumber = InvoiceRet.RefNumber.GetValue()
 		ldInvoiceDate = InvoiceRet.TimeCreated.GetValue()
+		lcInvMemo = ''
+		IF NOT ISNULL(InvoiceRet.Memo)
 		lcInvMemo = InvoiceRet.Memo.GetValue()
+		ENDIF
+		lcJobNumber = ''
+		IF NOT ISNULL(InvoiceRet.Other)
 		lcJobNumber = InvoiceRet.Other.GetValue()
+		ENDIF
+		
 		lcCustomerName = InvoiceRet.CustomerRef.FullName.GetValue()
 		lnAmount = InvoiceRet.BalanceRemaining.GetValue()
 		If Amount = 0
@@ -96,7 +103,11 @@ Try
 			?customerRet.ListID.GetValue(),                 customerRet.EditSequence.GetValue()
 			lcName = customerRet.Name.GetValue()
 			lcFullName = customerRet.FullName.GetValue()
+			lcCompanyName = ''
+			IF NOT ISNULL(customerRet.CompanyName)
 			lcCompanyName = customerRet.CompanyName.GetValue()
+			ENDIF
+			
 			Update curInvoice Set Name = Alltrim(lcName), FullName = Alltrim(lcFullName), CompanyName = Alltrim(lcCompanyName) Where InvNum = lcInvoiceNumber
 
 
