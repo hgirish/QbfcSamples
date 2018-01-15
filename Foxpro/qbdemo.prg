@@ -1,3 +1,4 @@
+LPARAMETERS fromDate,todate
 #include qbfc.h
 Local minvno, mfile, fromDate, toDate, sessionBegun, connectionOpen, lcqbsdkver, SessionManager
 Local requestmsgset, invoiceQueryRq, responsemsgset, response2, InvoiceRetList, InvoiceRet, transid, editseq, invoicelineretlist, FullName, mtxnlineid, mfullname, mparent, i, k
@@ -5,8 +6,13 @@ Local requestmsgset, invoiceQueryRq, responsemsgset, response2, InvoiceRetList, 
 Clear
 minvno  = 307
 mfile = 'qbdemo'
-fromDate = Date(2015,1,5)
-toDate = Date(2018,1,31)
+IF EMPTY(fromDate)
+fromDate = DATE()-200
+ENDIF
+IF EMPTY(toDate)
+toDate = DATE() - 30
+ENDIF
+
 
 sessionBegun = .F.
 connectionOpen = .F.
