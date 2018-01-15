@@ -24,7 +24,7 @@ namespace InvoiceQuery
                 //Connect to QuickBooks and begin a session
                 sessionManager.OpenConnection("", "GenerateInvoiceSummary");
                 //connectionOpen = true;
-                sessionManager.BeginSession("", ENOpenMode.omMultiUser);
+                sessionManager.BeginSession("", ENOpenMode.omDontCare);
                 sessionBegun = true;
 
                 //Create the message set request object to hold our request

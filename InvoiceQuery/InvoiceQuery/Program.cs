@@ -23,7 +23,7 @@ namespace InvoiceQuery
             //var test = new  OpenCompanyFile();
             //test.OpenQB();
             var fromDate = new DateTime(2015, 1, 5);
-            var toDate = new DateTime(2018, 1, 31);
+            var toDate = new DateTime(2018, 1, 5);
 
             var helper = new InvoiceQueryHelperDetail();
             var invoices = helper.GetInvoiceDetail(fromDate,toDate);
