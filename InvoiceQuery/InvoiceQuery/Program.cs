@@ -23,7 +23,7 @@ namespace InvoiceQuery
             //var test = new  OpenCompanyFile();
             //test.OpenQB();
             var fromDate = new DateTime(2015, 1, 5);
-            var toDate = new DateTime(2018, 1, 5);
+            var toDate = new DateTime(2018, 1, 31);
 
             var helper = new InvoiceQueryHelperDetail();
             var invoices = helper.GetInvoiceDetail(fromDate,toDate);
@@ -32,7 +32,7 @@ namespace InvoiceQuery
         }
         public static void Export(IList<Invoice> list)
         {
-            using (TextWriter sw = new StreamWriter("D:\\Invoice_JobNumbers.csv"))
+            using (TextWriter sw = new StreamWriter("Invoice_JobNumbers.csv"))
             {
                 sw.WriteLine("InvoiceNumber\tInvoiceDate\tAmount\tJobNumber\tCustomerName\tMemo\tCustomer_Name\tDescription");
                 foreach (var item in list)
