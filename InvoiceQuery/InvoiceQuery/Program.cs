@@ -14,18 +14,20 @@ namespace InvoiceQuery
 
         static void Main(string[] args)
         {
-            // InvoiceQueryHelper helper = new InvoiceQueryHelper();
-            // var helper = new InvoiceQueryHelperDetail();
+            // InvoiceQueryHelper helper = new InvoiceQueryHelper();            
             // var invoices = helper.GetInvoiceAndJob();
             //  var invoices = helper.GetInvoiceWithCustomer();
-            //    var invoices = helper.GetInvoiceDetail();
+
             //var demo = new Demo();
             //demo.GetInvoiceDetail();
-            var test = new  OpenCompanyFile();
-            test.OpenQB();
+            //var test = new  OpenCompanyFile();
+            //test.OpenQB();
+            var fromDate = new DateTime(2015, 1, 5);
+            var toDate = new DateTime(2018, 1, 31);
 
-
-          //  Export(invoices);
+            var helper = new InvoiceQueryHelperDetail();
+            var invoices = helper.GetInvoiceDetail(fromDate,toDate);
+            Export(invoices);
 
         }
         public static void Export(IList<Invoice> list)

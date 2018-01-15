@@ -19,7 +19,7 @@ namespace InvoiceQuery
                 string qbFile = ConfigurationSettings.AppSettings["companyfile"].ToString();
                 Console.WriteLine(qbFile);
                 sessionManager.BeginSession(
-                    qbFile, ENOpenMode.omDontCare);
+                    qbFile, ENOpenMode.omMultiUser);
 
                 ICustomerQuery customerQueryRq = requestMsgSet.AppendCustomerQueryRq();
                 customerQueryRq.ORCustomerListQuery.CustomerListFilter.ActiveStatus.SetValue(ENActiveStatus.asAll);

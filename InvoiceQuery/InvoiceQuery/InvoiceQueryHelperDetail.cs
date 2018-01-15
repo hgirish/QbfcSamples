@@ -10,22 +10,21 @@ namespace InvoiceQuery
 {
   public  class InvoiceQueryHelperDetail
     {
-        public IList<Invoice> GetInvoiceDetail()
+        public IList<Invoice> GetInvoiceDetail(DateTime fromDate, DateTime toDate)
         {
             bool sessionBegun = false;
             QBSessionManager sessionManager = null;
             var invoices = new List<Invoice>();
             sessionManager = new QBSessionManager();
             IMsgSetRequest requestMsgSet = null;
-            var fromDate = new DateTime(2018, 1, 5);
-            var toDate = new DateTime(2018, 1, 5);
+            
 
             try
             {
                 //Connect to QuickBooks and begin a session
-                sessionManager.OpenConnection("", "GenerateInvoicePDFs");
+                sessionManager.OpenConnection("", "GenerateInvoiceSummary");
                 //connectionOpen = true;
-                sessionManager.BeginSession("", ENOpenMode.omDontCare);
+                sessionManager.BeginSession("", ENOpenMode.omMultiUser);
                 sessionBegun = true;
 
                 //Create the message set request object to hold our request
@@ -67,6 +66,10 @@ namespace InvoiceQuery
                             Amount = invoiceRet.BalanceRemaining?.GetValue()
 
                         };
+                        if (invoice.Amount == 0)
+                        {
+                            invoice.Amount = invoiceRet.Subtotal?.GetValue();
+                        }
                         var customerListId = invoiceRet.CustomerRef?.ListID?.GetValue();
                         if (customerListId != null)
                         {
