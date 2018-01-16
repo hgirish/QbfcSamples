@@ -7,12 +7,13 @@ Clear
 minvno  = 307
 mfile = 'qbdemo'
 IF EMPTY(fromDate)
-fromDate = DATE()-200
+fromDate = DATE()-10
 ENDIF
 IF EMPTY(toDate)
-toDate = DATE() - 30
+toDate = DATE() - 10
 ENDIF
 
+Create Cursor curInvoice(InvNum c(20), InvDate Datetime, JobNum c(20), CustName c(50), Amount Y, InvMemo c(150),Name c(50),FullName c(50),CompanyName c(50), Descr c(150))
 
 sessionBegun = .F.
 connectionOpen = .F.
@@ -21,10 +22,10 @@ lcqbsdkver="QBFC13.QBSessionManager" && change to the SDK version you are using
 Try
 	SessionManager = Createobject(lcqbsdkver)
 
-	SessionManager.OpenConnection2("","Foxpro Qbfc", ctLocalQBD)
+	SessionManager.OpenConnection2("","Foxpro Qbfc", ctLocalQBDLaunchUI)
 	connectionOpen = .T.
 *Take a look down the qbfc.h file and see if you can find the ctlocalqbd.  Now you see what that file does for you
-	SessionManager.BeginSession("", omdontcare)
+	SessionManager.BeginSession("D:\QbData\qbwfile.QBW", omdontcare)
 	sessionBegun = .T.
 
 *!*	supportedversion = qbfclatestversion(sessionmanager)
@@ -68,8 +69,8 @@ Try
 		Return
 	Endif
 
-	Create Cursor curInvoice(InvNum c(20), InvDate Datetime, JobNum c(20), CustName c(50), Amount Y, InvMemo c(150),Name c(50),FullName c(50),CompanyName c(50), Descr c(150))
 	For i = 0 To (invoiceCounts -1)
+	?"Processing ", i+1, " of  ", invoiceCounts
 		InvoiceRet = InvoiceRetList.GetAt(i)
 		QuickBooksID = InvoiceRet.TxnID.GetValue()
 		EditSequence = InvoiceRet.EditSequence.GetValue()
@@ -106,7 +107,7 @@ Try
 			customerRetList = response.Detail
 
 			customerRet = customerRetList.GetAt(0)
-			?customerRet.ListID.GetValue(),                 customerRet.EditSequence.GetValue()
+			*?customerRet.ListID.GetValue(),                 customerRet.EditSequence.GetValue()
 			lcName = customerRet.Name.GetValue()
 			lcFullName = customerRet.FullName.GetValue()
 			lcCompanyName = ''
@@ -190,7 +191,10 @@ Finally
 	Endif
 Endtry
 Select curInvoice
-Browse
+IF RECCOUNT() > 0
+BROWSE 
+ENDIF
+
 
 ******************
 
